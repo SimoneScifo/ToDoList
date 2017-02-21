@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/icons"
+    android:layout_margin="10dp"
+    android:elevation="5dp">
+
+    <EditText
+        android:id="@+id/titleET"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/item_text"
+        android:layout_below="@+id/toolbar"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/supportExpirationDateTV"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleET"
+        android:text="Expiration Date"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/body_ET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/supportExpirationDateTV"
+        android:hint="Body"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/expiration_dateET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="06/07/1997"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/titleET"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/body_ET"
+        android:id="@+id/btn_okADD"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:text="ADD"
+        android:textAlignment="textEnd"/>
+</RelativeLayout>

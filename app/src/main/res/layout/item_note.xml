@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/icons"
+    android:layout_margin="10dp"
+    android:elevation="5dp">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:text="@string/item_text"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/supportExpirationDateTV"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleTV"
+        android:text="Expiration Date"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/expiration_dateTV"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/titleTV"
+        android:text="06/07/1997"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/body_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/supportExpirationDateTV"
+        android:text="Body"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
+</RelativeLayout>
