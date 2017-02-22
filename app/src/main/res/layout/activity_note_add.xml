@@ -4,8 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@color/icons"
     android:layout_margin="10dp"
-    android:elevation="5dp">
-
+    android:elevation="5dp"
+    android:id="@+id/layout_add">
+    <include layout="@layout/toolbar"/>
     <EditText
         android:id="@+id/titleET"
         android:layout_marginBottom="15dp"
@@ -34,18 +35,6 @@
         android:textSize="20dp"
         android:layout_marginBottom="20dp"/>
 
-    <EditText
-        android:id="@+id/expiration_dateET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:text="06/07/1997"
-        android:textSize="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/titleET"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,4 +43,17 @@
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:text="ADD"
         android:textAlignment="textEnd"/>
+
+    <EditText
+        android:id="@+id/expiration_dateET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="Insert date"
+        android:textSize="20dp"
+        android:layout_alignBaseline="@+id/supportExpirationDateTV"
+        android:layout_alignBottom="@+id/supportExpirationDateTV"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="14dp"
+        android:focusable="false"/>
 </RelativeLayout>

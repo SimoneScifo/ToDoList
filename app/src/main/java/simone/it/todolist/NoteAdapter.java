@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -32,15 +34,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteVH> {
         dataSet.set(position, item);
         notifyItemChanged(position);
     }
-    public ArrayList<Note> getNotes (){
-        return  dataSet;
+
+    public ArrayList<Note> getNotes() {
+        return dataSet;
     }
-    public int getPosition(int position){
+
+    public int getPosition() {
         return position;
     }
-    public void setPosition (){
-        this.position=position;
+
+    public void setPosition(int position) {
+        this.position = position;
     }
+
     public Note getNote(int position) {
         return dataSet.get(position);
     }
@@ -49,6 +55,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteVH> {
     public void setDataSet(ArrayList<Note> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
+    }
+    public void removeNote(int position) {
+        dataSet.remove(position);
+        notifyItemRemoved(position);
+
     }
 
     @Override
@@ -72,16 +83,30 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteVH> {
     }
 
 
-
-    public class NoteVH extends RecyclerView.ViewHolder{
+    public class NoteVH extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView titleTV, body, expiration_dateTV;
+
         public NoteVH(View itemView) {
             super(itemView);
             titleTV = (TextView) itemView.findViewById(R.id.titleTV);
             body = (TextView) itemView.findViewById(R.id.body_tv);
             expiration_dateTV = (TextView) itemView.findViewById(R.id.expiration_dateTV);
+            setPosition(getAdapterPosition());
+            itemView.setOnCreateContextMenuListener(this);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    setPosition(getAdapterPosition());
 
+                    return false;
+                }
+            });
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            MenuInflater inflater = ((MainActivity)menu).getMenuInflater();
+            inflater.inflate(R.menu.menu_toolbar, menu);
         }
     }
-
 }
