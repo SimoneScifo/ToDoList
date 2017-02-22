@@ -15,6 +15,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static simone.it.todolist.AddActivity.EDIT_BODY;
+import static simone.it.todolist.AddActivity.EDIT_DATE;
+import static simone.it.todolist.AddActivity.EDIT_TITLE;
+import static simone.it.todolist.AddActivity.REQUEST_EDIT;
+
 /**
  * Created by Simone on 20/02/2017.
  */
@@ -93,19 +98,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteVH> {
             expiration_dateTV = (TextView) itemView.findViewById(R.id.expiration_dateTV);
             setPosition(getAdapterPosition());
             itemView.setOnCreateContextMenuListener(this);
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    setPosition(getAdapterPosition());
-
-                    return false;
-                }
-            });
         }
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuInflater inflater = ((MainActivity)menu).getMenuInflater();
+            MenuInflater inflater = ((MainActivity)itemView.getContext()).getMenuInflater();
             inflater.inflate(R.menu.menu_toolbar, menu);
         }
     }

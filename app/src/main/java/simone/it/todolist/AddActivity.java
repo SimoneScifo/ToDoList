@@ -37,8 +37,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     public static int REQUEST_EDIT = 1002;
 
     EditText titleET, expirationDateET, bodyET;
-    Button btn_add;
-
     Calendar myCalendar = Calendar.getInstance();
 
 
@@ -50,8 +48,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         titleET = (EditText) findViewById(R.id.titleET);
         expirationDateET= (EditText) findViewById(expiration_dateET);
         bodyET=(EditText) findViewById(R.id.body_ET);
-        btn_add = (Button) findViewById(R.id.btn_okADD);
-        btn_add.setOnClickListener(this);
         expirationDateET.setOnClickListener(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//Attacco la toolbar al layout
@@ -78,13 +74,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_check) {
-            /*Intent intent = new Intent(this,AddActivity.class);
-            intent.putExtra(EDIT_TITLE, titleET.getText().toString());
-            intent.putExtra(EDIT_BODY, bodyET.getText().toString());
-            intent.putExtra(EDIT_DATE, expiration_dateET.getText().toString());
-
+            Intent intent = new Intent();
+            intent.putExtra(ADD_TITLE, titleET.getText().toString());
+            intent.putExtra(ADD_BODY, bodyET.getText().toString());
+            intent.putExtra(ADD_DATE, expirationDateET.getText().toString());
             setResult(Activity.RESULT_OK, intent);
-            startActivityForResult(intent, REQUEST_EDIT);*/
+            finish();
             return true;
         }
         else  if (id == R.id.action_delete) {
@@ -98,23 +93,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_okADD) {
-            Intent intent = new Intent();
-            intent.putExtra(ADD_TITLE, titleET.getText().toString());
-            intent.putExtra(ADD_BODY, bodyET.getText().toString());
-            intent.putExtra(ADD_DATE, expirationDateET.getText().toString());
-            setResult(Activity.RESULT_OK, intent);
-            finish();
-        } else if (v.getId() == expiration_dateET) {
+       if (v.getId() == expiration_dateET) {
             new DatePickerDialog(AddActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                     myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-        } else if (v.getId() == R.id.action_check){
-            Intent intent = new Intent();
-            intent.putExtra(EDIT_TITLE, titleET.getText().toString());
-            intent.putExtra(EDIT_BODY, bodyET.getText().toString());
-            intent.putExtra(EDIT_DATE, expirationDateET.getText().toString());
-            setResult(Activity.RESULT_OK, intent);
-            finish();
         }
     }
 
