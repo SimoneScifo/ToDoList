@@ -2,6 +2,8 @@ package simone.it.todolist;
 
 import android.widget.TextView;
 
+import java.util.Date;
+
 
 /**
  * Created by Simone on 20/02/2017.
@@ -11,40 +13,26 @@ enum State {
                 }
 public class Note {
 
-    private String title, creation_date, last_modify, body, expiration_date;
+    private String title;
+    private String body;
     private State state;
+    private Date createdAt;
+    private Date modifiedAt;
+    private String expiration_date;
+    private int id;
 
-    public Note(String title, String body, String expiration_date) {
+
+    /*public Note(String title, String body, String expiration_date) {
         this.title = title;
-        //this.creation_date = creation_date;
-        //this.last_modify = last_modify;
         this.body = body;
         this.expiration_date = expiration_date;
-        //this.state = state;
-    }
-
+    }*/
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getCreation_date() {
-        return creation_date;
-    }
-
-    public void setCreation_date(String creation_date) {
-        this.creation_date = creation_date;
-    }
-
-    public String getLast_modify() {
-        return last_modify;
-    }
-
-    public void setLast_modify(String last_modify) {
-        this.last_modify = last_modify;
     }
 
     public String getBody() {
@@ -55,6 +43,30 @@ public class Note {
         this.body = body;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
     public String getExpiration_date() {
         return expiration_date;
     }
@@ -63,13 +75,14 @@ public class Note {
         this.expiration_date = expiration_date;
     }
 
-    public State getState() {
-        return state;
+    public int getId() {
+        return id;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setId(int id) {
+        this.id = id;
     }
+
 
 
 }

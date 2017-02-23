@@ -1,30 +1,26 @@
 package simone.it.todolist;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
-import android.widget.Scroller;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static simone.it.todolist.AddActivity.EDIT_BODY;
-import static simone.it.todolist.AddActivity.EDIT_DATE;
-import static simone.it.todolist.AddActivity.EDIT_TITLE;
-import static simone.it.todolist.AddActivity.REQUEST_EDIT;
+import simone.it.todolist.DatabaseHandler;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by Simone on 20/02/2017.
  */
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteVH> {
+
+
 
     private ArrayList<Note> dataSet = new ArrayList<>();
     private int position;
@@ -35,7 +31,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteVH> {
 
     }
 
-    public void editNote(Note item, int position) {
+    public void updateNote(Note item, int position) {
         dataSet.set(position, item);
         notifyItemChanged(position);
     }
@@ -88,7 +84,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteVH> {
     }
 
 
-    public class NoteVH extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+
+    public class NoteVH extends RecyclerView.ViewHolder  {
         TextView titleTV, body, expiration_dateTV;
 
         public NoteVH(View itemView) {
@@ -97,13 +94,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteVH> {
             body = (TextView) itemView.findViewById(R.id.body_tv);
             expiration_dateTV = (TextView) itemView.findViewById(R.id.expiration_dateTV);
             setPosition(getAdapterPosition());
-            itemView.setOnCreateContextMenuListener(this);
-        }
-
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            MenuInflater inflater = ((MainActivity)itemView.getContext()).getMenuInflater();
-            inflater.inflate(R.menu.menu_toolbar, menu);
         }
     }
 }
