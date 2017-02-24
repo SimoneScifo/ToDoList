@@ -22,6 +22,7 @@ import java.util.Locale;
 import static simone.it.todolist.MainActivity.NOTE_BODY_KEY;
 import static simone.it.todolist.MainActivity.NOTE_DATE_KEY;
 import static simone.it.todolist.MainActivity.NOTE_TITLE_KEY;
+import static simone.it.todolist.MainActivity.REQUEST_EDIT;
 import static simone.it.todolist.R.id.expiration_dateET;
 
 /**
@@ -51,10 +52,17 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             //setto la toolbar all'activity
             getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+            if (getIntent() != null) {
+                if (getIntent().getStringExtra(MainActivity.NOTE_TITLE_KEY) != null) {
+                    titleET.setText(getIntent().getStringExtra(MainActivity.NOTE_TITLE_KEY));
+                    bodyET.setText(getIntent().getStringExtra(MainActivity.NOTE_BODY_KEY));
+                    expirationDateET.setText(getIntent().getStringExtra(MainActivity.NOTE_DATE_KEY));
+                }
+            }
+
+            }
         }
-
-
-    }
     @Override
     // Inflate the menu; Questo aggiunge item nell'action bar se sono presenti.
     public boolean onCreateOptionsMenu(Menu menu) {

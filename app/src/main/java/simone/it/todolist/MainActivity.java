@@ -1,6 +1,7 @@
 package simone.it.todolist;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DatabaseHandler database;
     Toolbar toolbar;
     public ActionMode actionMode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,13 +127,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 noteRV.scrollToPosition(0);
                 database.addNote(note);
                 adapter.addNote(note);
+                Toast.makeText(getApplicationContext(), "Item added", Toast.LENGTH_SHORT).show();
             }
         else if (requestCode == REQUEST_EDIT && resultCode == RESULT_OK){
                 editingNote.setTitle(data.getStringExtra(NOTE_TITLE_KEY));
                 editingNote.setBody(data.getStringExtra(NOTE_BODY_KEY));
+                editingNote.setExpiration_date(data.getStringExtra(NOTE_DATE_KEY));
                 noteRV.scrollToPosition(0);
                 adapter.updateNote(editingNote,adapter.getPosition());
                 database.updateNote(editingNote);
+                Toast.makeText(getApplicationContext(), "Edit success", Toast.LENGTH_SHORT).show();
             }
 
     }
@@ -158,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     database.deleteNote(adapter.getNote(adapter.getPosition()));
                     // remove from adapter
                     adapter.deleteNote(adapter.getPosition());
+                    Toast.makeText(getApplicationContext(), "Item deleted", Toast.LENGTH_SHORT).show();
                     mode.finish(); // Action picked, so close the CAB
                     return true;
                 case R.id.action_edit:
@@ -167,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     i.putExtra(NOTE_BODY_KEY,editingNote.getBody());
                     i.putExtra(NOTE_DATE_KEY,editingNote.getExpiration_date());
                     startActivityForResult(i,REQUEST_EDIT);
+                    mode.finish();
                     return true;
             }
             return false;
