@@ -58,7 +58,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     // Inflate the menu; Questo aggiunge item nell'action bar se sono presenti.
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        getMenuInflater().inflate(R.menu.menu_add_toolbar, menu);
         return true;
     }
     @Override
@@ -68,7 +68,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_edit) {
+        if (id == R.id.action_add) {
             Intent intent = new Intent();
             intent.putExtra(NOTE_TITLE_KEY, titleET.getText().toString());
             intent.putExtra(NOTE_BODY_KEY, bodyET.getText().toString());
@@ -77,12 +77,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             finish();
             return true;
         }
-        else  if (id == R.id.action_delete) {
-            Intent intent = new Intent(this, AddActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

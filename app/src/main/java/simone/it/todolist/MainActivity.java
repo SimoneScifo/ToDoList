@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -36,20 +39,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Note note = new Note();
 
     DatabaseHandler database;
-
+    Toolbar toolbar;
+    public ActionMode actionMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        intent=getIntent();
+        intent = getIntent();
 
         titleTV = (TextView) findViewById(R.id.titleTV);
         expiration_dateTV = (TextView) findViewById(R.id.expiration_dateTV);
         bodyTV = (TextView) findViewById(R.id.body_tv);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//Attacco la toolbar al layout
+        toolbar = (Toolbar) findViewById(R.id.toolbar);//Attacco la toolbar al layout
         setSupportActionBar(toolbar);//setto la toolbar all'activity
+
+
 
         noteRV = (RecyclerView) findViewById(R.id.list_RV);
         layoutManager = new LinearLayoutManager(this);
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btn_add = (FloatingActionButton) findViewById(R.id.floating_add_button);
         btn_add.setOnClickListener(MainActivity.this);
+
 
         database = new DatabaseHandler(this);
         adapter.setDataSet(database.getAllNotes());
@@ -127,6 +134,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
     }
+    //CREO MENU CON ONLONGCLICK
+    public ActionMode.Callback callback = new ActionMode.Callback() {
 
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // Inflate a menu resource providing context menu items
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.menu_toolbar, menu);
+            return true;
+        }
 
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_delete:
+                    //remove record
+                    database.deleteNote(adapter.getNote(adapter.getPosition()));
+                    // remove from adapter
+                    adapter.deleteNote(adapter.getPosition());
+                    mode.finish(); // Action picked, so close the CAB
+                    return true;
+                case R.id.action_edit:
+                    editingNote = adapter.getNote(adapter.getPosition());
+                    Intent i = new Intent(MainActivity.this,AddActivity.class);
+                    i.putExtra(NOTE_TITLE_KEY,editingNote.getTitle());
+                    i.putExtra(NOTE_BODY_KEY,editingNote.getBody());
+                    i.putExtra(NOTE_DATE_KEY,editingNote.getExpiration_date());
+                    startActivityForResult(i,REQUEST_EDIT);
+                    return true;
+            }
+            return false;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            actionMode = null;
+        }
+    };
+
+    // Called when the user long-clicks on someView
+    public boolean onLongClick(View view) {
+
+        if (actionMode != null) {
+            return false;
+        }
+        adapter.setPosition(adapter.getPosition());
+        // Start the CAB using the ActionMode.Callback defined above
+        actionMode = (this.startSupportActionMode(callback));
+        view.setSelected(true);
+        return true;
+    }
 }
+
