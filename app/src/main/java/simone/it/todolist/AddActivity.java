@@ -16,14 +16,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.util.Locale;
 
 import static simone.it.todolist.MainActivity.NOTE_BODY_KEY;
 import static simone.it.todolist.MainActivity.NOTE_DATE_KEY;
+import static simone.it.todolist.MainActivity.NOTE_SPECIAL_KEY;
 import static simone.it.todolist.MainActivity.NOTE_TITLE_KEY;
 import static simone.it.todolist.MainActivity.REQUEST_EDIT;
 import static simone.it.todolist.R.id.expiration_dateET;
+import static simone.it.todolist.R.id.image_star;
 
 /**
  * Created by Simone on 20/02/2017.
@@ -34,7 +37,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     EditText titleET, expirationDateET, bodyET;
     Calendar myCalendar = Calendar.getInstance();
-
+    ImageView starImage;
 
 
     @Override
@@ -45,6 +48,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         expirationDateET= (EditText) findViewById(expiration_dateET);
         bodyET=(EditText) findViewById(R.id.body_ET);
         expirationDateET.setOnClickListener(this);
+        //starImage.findViewById(R.id.image_star);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);//Attacco la toolbar al layout
         setSupportActionBar(toolbar);
@@ -76,7 +80,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add) {
+        //if (id == R.id.action_add) {
+            switch (id){
+                case R.id.action_add:
             Intent intent = new Intent();
             intent.putExtra(NOTE_TITLE_KEY, titleET.getText().toString());
             intent.putExtra(NOTE_BODY_KEY, bodyET.getText().toString());
@@ -84,6 +90,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             setResult(Activity.RESULT_OK, intent);
             finish();
             return true;
+                case R.id.action_special:
+                    Intent i = new Intent();
+                    //i.putExtra(NOTE_SPECIAL_KEY, starImage.setVisibility());
         }
         return super.onOptionsItemSelected(item);
     }

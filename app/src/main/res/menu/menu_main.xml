@@ -2,17 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_special"
+        android:id="@+id/action_layoutSTAG"
         android:orderInCategory="300"
         android:title="EDIT"
-        android:icon="@drawable/star"
+        android:icon="@drawable/view_dashboard"
         app:showAsAction="always"></item>
-    <item
-        android:id="@+id/action_add"
-        android:orderInCategory="300"
-        android:title="EDIT"
-        android:icon="@drawable/check"
-        app:showAsAction="always">
-        </item>
-
 </menu>

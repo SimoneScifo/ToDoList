@@ -8,14 +8,12 @@ import java.util.Date;
 /**
  * Created by Simone on 20/02/2017.
  */
-enum State {
-        ACTIVE, COMPLETE, WAIT;
-                }
+
 public class Note {
 
     private String title;
     private String body;
-    private State state;
+    private int isSpecial;
     private Date createdAt;
     private Date modifiedAt;
     private String expiration_date;
@@ -43,12 +41,12 @@ public class Note {
         this.body = body;
     }
 
-    public State getState() {
-        return state;
+    public int getSpecial() {
+        return isSpecial;
     }
 
-    public void setState(State state) {
-        this.state = state;
+    public void setSpecial(int isSpecial) {
+        this.isSpecial = isSpecial;
     }
 
     public Date getCreatedAt() {

@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/item_text"
+            android:layout_below="@+id/image_star"
             android:textSize="30dp"/>
 
         <TextView
@@ -59,6 +60,14 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="14dp"
             android:focusable="false"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/star2"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/image_star"
+            android:visibility="invisible"
+            />
     </RelativeLayout>
 
 </RelativeLayout>

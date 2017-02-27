@@ -10,12 +10,18 @@
         android:orderInCategory="300"
         android:title="DELETE"
         android:icon="@drawable/delete"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="always"></item>
     <item
         android:id="@+id/action_edit"
         android:orderInCategory="300"
         android:title="EDIT"
         android:icon="@drawable/pencil"
+        app:showAsAction="always"></item>
+    <item
+        android:id="@+id/action_special"
+        android:orderInCategory="300"
+        android:title="EDIT"
+        android:icon="@drawable/star"
         app:showAsAction="always"></item>
 
 </menu>

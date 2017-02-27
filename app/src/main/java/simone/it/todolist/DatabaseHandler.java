@@ -20,15 +20,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COLUMN_NAME_TITLE = "title";
     private static final String COLUMN_NAME_BODY = "body";
     private static final String COLUMN_NAME_DATE = "date";
+    private static final String COLUMN_NAME_SPECIAL = "special";
     //Incrementare la versione se cambio lo schema del database
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "Notes.db";
     public static final String TABLE_NAME = "Note";
 
     //DatabaseHandler myDatabase = new DatabaseHandler(getContext());
 
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE "+ DatabaseHandler.TABLE_NAME+ "("+ DatabaseHandler.COLUMN_NAME_ID + " INTEGER PRIMARY KEY, " +
-            DatabaseHandler.COLUMN_NAME_TITLE + " TEXT,"+ DatabaseHandler.COLUMN_NAME_BODY + " TEXT," + DatabaseHandler.COLUMN_NAME_DATE + " TEXT)";
+            DatabaseHandler.COLUMN_NAME_TITLE + " TEXT,"+ DatabaseHandler.COLUMN_NAME_BODY + " TEXT," + DatabaseHandler.COLUMN_NAME_DATE + " TEXT," + DatabaseHandler.COLUMN_NAME_SPECIAL + " INTEGER)";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + DatabaseHandler.TABLE_NAME;
 
     public DatabaseHandler(Context context) {
@@ -59,9 +60,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(DatabaseHandler.COLUMN_NAME_TITLE, note.getTitle());
         values.put(DatabaseHandler.COLUMN_NAME_BODY, note.getBody());
         values.put(DatabaseHandler.COLUMN_NAME_DATE, note.getExpiration_date());
+        values.put(DatabaseHandler.COLUMN_NAME_SPECIAL, note.getSpecial());
 
 // Insert the new row, returning the primary key value of the new row
-       db.insert(DatabaseHandler.TABLE_NAME, null, values);
+       long i=db.insert(DatabaseHandler.TABLE_NAME, null, values);
+        note.setId((int)i);
         db.close();
     }
 
@@ -82,6 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     note.setTitle(cursor.getString(1));
                     note.setBody(cursor.getString(2));
                     note.setExpiration_date(cursor.getString(3));
+                    note.setSpecial(cursor.getInt(4));
                     // Adding note to list
                     notesList.add(note);
                 } while (cursor.moveToNext());
@@ -99,6 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(COLUMN_NAME_TITLE, note.getTitle());
             values.put(COLUMN_NAME_BODY, note.getBody());
             values.put(COLUMN_NAME_DATE, note.getExpiration_date());
+            values.put(COLUMN_NAME_SPECIAL, note.getSpecial());
             // updating row
                 return db.update(TABLE_NAME, values, COLUMN_NAME_ID + " = ?",
                     new String[]{String.valueOf(note.getId())});
